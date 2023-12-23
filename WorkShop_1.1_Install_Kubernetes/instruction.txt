@@ -23,11 +23,11 @@ Link for download:
     sudo ctr container list
     sudo ctr container delete demo
     sudo ctr image remove docker.io/library/hello-world:latest
-    kubectl version --short
+    kubectl version --client=true
 
 4. Clone workshop to aws machine by command: 
     cd ~/
-    git clone https://github.com/praparn/kubernetes_202303.git
+    git clone https://github.com/praparn/kubernetes_202312.git
 
 5. Check module for IPVS by command:
     sudo lsmod | grep -e ip_vs -e nf_conntrack_ipv4
@@ -45,7 +45,7 @@ libcrc32c              16384  2 nf_conntrack,ip_vs
 
 6. Initial kubernetes by command:
     sudo su -
-    curl https://raw.githubusercontent.com/praparn/sourcesetup/master/kubernetes_initial/version126/kubeadm-init-basic-containerd.yaml > /tmp/kubeadm-init-basic-containerd.yaml
+    curl https://raw.githubusercontent.com/praparn/sourcesetup/master/kubernetes_initial/version129/kubeadm-init-basic-containerd.yaml > /tmp/kubeadm-init-basic-containerd.yaml
     kubeadm init --config /tmp/kubeadm-init-basic-containerd.yaml    
     exit
 
@@ -54,7 +54,6 @@ libcrc32c              16384  2 nf_conntrack,ip_vs
    	mkdir -p $HOME/.kube
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   	sudo chown $(id -u):$(id -g) $HOME/.kube/config
-	kubectl taint nodes --all node-role.kubernetes.io/master-
     kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
 8. Install cilium network component by command:
@@ -62,7 +61,7 @@ libcrc32c              16384  2 nf_conntrack,ip_vs
     cilium status --wait
     watch kubectl get pods --all-namespaces
     cilium hubble enable --ui
-    cilium status
+    cilium status --wait
     
 9. Check IPVS mode on kube-proxy by command:
     kubectl get pods -n kube-system ==> Record kube-proxy name
@@ -80,7 +79,7 @@ libcrc32c              16384  2 nf_conntrack,ip_vs
     kubectl run webtest --image=labdocker/nginx:http2 --port=443
     kubectl get pods -o wide
     kubectl expose pods webtest --target-port=443 --type=NodePort
-    kubectl get svc -o wide                                               ==> Record Public Port
+    kubectl get svc -o wide                                              ==> Record Public Port
     curl ifconfig.me
 
 13. Test access web endpoint by command:
@@ -92,7 +91,7 @@ libcrc32c              16384  2 nf_conntrack,ip_vs
     kubectl delete pods/webtest
     kubectl delete svc/webtest
 
-15. Now all workshop is on "/home/ubuntu/kubernetes_202303"
+15. Now all workshop is on "/home/ubuntu/kubernetes_202312"
 
 
 *Remark: In case you need to reinitial all this lab again please kindly following command below (*Warnning: This will reset all lab that you had been operate before)
