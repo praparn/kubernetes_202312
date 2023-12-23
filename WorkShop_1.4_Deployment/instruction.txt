@@ -39,10 +39,11 @@ Note: This instruction will demonstrate about how to use Deployment/RS for deplo
 	kubectl rollout status deployment/webtest
 
 10. Check status of deployment, rs, pods by command:
+	kubectl describe deployment/webtest
 	kubectl get deployment
 	kubectl get rs
 	kubectl get pods
-
+	
 11. Test curl and web browser for access web by command:
 	open browser for test can operate: http://<Public IP>:32500 or curl http://<Private IP>:32500
 
@@ -59,6 +60,7 @@ Note: This instruction will demonstrate about how to use Deployment/RS for deplo
 
 
 14. Check status of deployment, rs, pods by command:
+	kubectl describe deployment/webtest
 	kubectl get deployment
 	kubectl get rs
 	kubectl get pods
