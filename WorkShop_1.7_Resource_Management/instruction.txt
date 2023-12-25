@@ -171,3 +171,4 @@ Part 3: Qos configuration:
 7. Check output qos for pods and cleanup by command:
     kubectl describe pods/webtest --namespace=qos-namespace
     kubectl delete -f https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_1.7_Resource_Management/webtest_pod_besteffort.yml
+	kubectl delete -f https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_1.7_Resource_Management/qos_namespace.yml

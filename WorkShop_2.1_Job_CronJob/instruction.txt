@@ -29,7 +29,7 @@ Create Job for Monitor System via LINE:
           value: "pKCqcUWGmCpEoNBDNZxsnt5OT4kP41F2BK3QsdSdMDw"	==> Input LINE TOKEN
 
 4. Create Job by command:
-	kubectl create -f job.yml 
+	kubectl create -f job.yml
 	kubectl get jobs -o wide
 	kubectl get pods -o wide
   kubectl describe jobs/linenotify
@@ -60,7 +60,7 @@ Create Job for Monitor System via LINE:
           value: "pKCqcUWGmCpEoNBDNZxsnt5OT4kP41F2BK3QsdSdMDw"	==> Input LINE TOKEN
 
 8. Create Job by command: (Monitor 5 - 6 min)
-	kubectl create -f job_notify_cron.yml 
+	kubectl create -f job_notify_cron.yml
 	kubectl get cronjob -o wide
   watch kubectl get jobs
 

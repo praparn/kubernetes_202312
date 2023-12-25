@@ -37,7 +37,7 @@ Part1: Container Logging:
 	kubectl logs pods/<pods name> -c cachedb
 
 10. Open kubenetes dashboard by command:
-	kubectl get secret -n kubernetes-dashboard-admin | grep kubernetes-dashboard
+	kubectl get secret -n kubernetes-dashboard | grep kubernetes-dashboard-admin
 	kubectl describe secret kubernetes-dashboard-admin -n kubernetes-dashboard ==> Record Token
 	kubectl get pods -n=kubernetes-dashboard
 	kubectl port-forward --address 0.0.0.0 pods/<kubernetes-dashboard-xxx> 8443:8443 -n=kubernetes-dashboard
