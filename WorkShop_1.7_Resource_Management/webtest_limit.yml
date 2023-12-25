@@ -10,23 +10,35 @@ metadata:
     environment: development
 spec:
   limits:
-  - max:
+  - type: Pod
+    max:
       cpu: "1"
       memory: 1Gi
     min:
       cpu: 200m
       memory: 6Mi
-    type: Pod
-  - default:
+    
+  - type: Container
+    default:
       cpu: 300m
       memory: 200Mi
+      ephemeral-storage: 50Mi
     defaultRequest:
       cpu: 200m
       memory: 100Mi
+      ephemeral-storage: 10Mi
     max:
       cpu: "1"
       memory: 1Gi
     min:
       cpu: 100m
       memory: 3Mi
-    type: Container
+      ephemeral-storage: 10Mi
+
+    
+
+  - type: PersistentVolumeClaim
+    max:
+      storage: 50Gi
+    min:
+      storage: 1Gi
