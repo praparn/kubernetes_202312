@@ -12,7 +12,7 @@ metadata:
 spec:
   containers:
     - name: webtest
-      image: labdocker/cluster:webservicelite_v1
+      image: labdocker/cluster:webservicelite
       resources:
         requests:
           memory: "16Mi"

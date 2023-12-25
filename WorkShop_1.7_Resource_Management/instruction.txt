@@ -133,7 +133,7 @@ Part 2: Name space level configuration:
 	htop
 
 11. Set resource for Deployment to Normal "0.6CPU", "500MB memory" by command:
-	kubectl set resources deployment/webtest --limits=cpu="0.6",memory=500Mi --requests=cpu="0.4",memory=400Mi --record --namespace=webtest-namespace
+	kubectl set resources deployment/webtest --limits=cpu="0.6",memory=500Mi --requests=cpu="0.4",memory=400Mi --namespace=webtest-namespace
 	kubectl rollout status deployment/webtest --namespace=webtest-namespace
 	kubectl get rs --namespace=webtest-namespace
 	kubectl get pods --namespace=webtest-namespace
