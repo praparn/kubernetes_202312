@@ -113,7 +113,6 @@ kubeadm join 10.0.1.67:6443 --token 1ogaw7.1dx1qg34qzi6ha5t \
 	mkdir -p $HOME/.kube
   	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 	sudo chown $(id -u):$(id -g) $HOME/.kube/config
-	kubectl taint nodes --all node-role.kubernetes.io/master-
 	kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
 7. (Master) Check IPVS mode on kube-proxy by command:
@@ -144,13 +143,23 @@ UDP  ip-10-96-0-10.ap-southeast-1 rr
 	watch kubectl get pods --all-namespaces
 	cilium hubble enable --ui
 	cilium status --wait
+========================================  Install Cloud Controller =============================================================
+11. (Master) Git clone repository of AWS Cloud Controller by command:
+	cd ~ && git clone https://github.com/kubernetes/cloud-provider-aws.git && cd cloud-provider-aws/examples/existing-cluster/base
+
+12. (Master) Create AWS Cloud Controller (DaemonSet) by command:
+	kubectl create -k .
+
+13. (Master) Verify pods of CLoud Controller by command:
+	kubectl get daemonset -n kube-system
+	kubectl get pods -n kube-system
 
 ========================================  Create Dashboard =====================================================================
-11. Create Dashboard by command:
+14. Create Dashboard by command:
 	kubectl create -f https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_1.7_Resource_Management/dashboard-restrict.yml
 	watch kubectl get all -n=kubernetes-dashboard
 
-12. Create Generic-Admin for access by command and relogin again:
+15. Create Generic-Admin for access by command and relogin again:
 	kubectl create -f https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_1.7_Resource_Management/user-restrict-admin.yml
 	kubectl get secret -n kubernetes-dashboard | grep kubernetes-dashboard-admin
 	kubectl describe secret kubernetes-dashboard-admin -n kubernetes-dashboard
