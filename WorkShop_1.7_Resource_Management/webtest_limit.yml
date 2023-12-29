@@ -30,12 +30,11 @@ spec:
     max:
       cpu: "1"
       memory: 1Gi
+      ephemeral-storage: 500Mi
     min:
       cpu: 100m
       memory: 3Mi
       ephemeral-storage: 10Mi
-
-    
 
   - type: PersistentVolumeClaim
     max:
