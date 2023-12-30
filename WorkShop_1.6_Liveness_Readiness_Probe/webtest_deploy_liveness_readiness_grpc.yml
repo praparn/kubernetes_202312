@@ -29,29 +29,24 @@ spec:
     spec:
       containers:
         - name: webtest
-          image: labdocker/cluster:webservicelite_v1
+          image: registry.k8s.io/etcd:3.5.1-0
+          command: [ "/usr/local/bin/etcd", "--data-dir",  "/var/lib/etcd", "--listen-client-urls", "http://0.0.0.0:2379", "--advertise-client-urls", "http://127.0.0.1:2379", "--log-level", "debug"]
           ports:
-          - containerPort: 5000
+          - containerPort: 2379
             protocol: TCP
           readinessProbe:
-            exec:
-              command:
-                - cat
-                - /usr/src/app/main.py
+            grpc:
+              port: 2379
             initialDelaySeconds: 15
             periodSeconds: 5
           livenessProbe:
-            exec:
-              command:
-                - cat
-                - /usr/src/app/main.py
+            grpc:
+              port: 2379
             initialDelaySeconds: 15
             periodSeconds: 15
           startupProbe:
-            exec:
-              command:
-                - cat
-                - /usr/src/app/main.py
-            failureThreshold: 10
+            grpc:
+              port: 2379
             successThreshold: 1
-            periodSeconds: 15
+            failureThreshold: 10
+            periodSeconds: 30

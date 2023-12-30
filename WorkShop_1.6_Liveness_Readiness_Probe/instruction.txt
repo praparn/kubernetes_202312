@@ -111,7 +111,42 @@ This workshop will use http get request some command on container for probe
 	kubectl delete -f webtest_deploy_liveness_readiness_http.yml
 
 ====================================================
-Part 4: Exec Probe for Readiness Probe
+Part 4: Grpc Probe
+This workshop will use grpc get request some command on container for probe
+====================================================
+1. Create Deployment and check status by command:
+	cd ~/kubernetes_202312/WorkShop_1.6_Liveness_Readiness_Probe/
+	kubectl apply -f webtest_deploy_liveness_readiness_grpc.yml 
+	kubectl get deployment/webtest
+	kubectl get pods --show-labels
+	kubectl describe pods/<pods name>
+
+2. Test access browser/curl: http://<Public IP>:32600
+
+3. Edit file webtest_deploy_liveness_readiness_grpc.yml to change grpc path from 2379 init to 2380
+(vi webtest_deploy_liveness_readiness_grpc.yml)
+
+4. Apply new configuration by command:
+	kubectl apply -f webtest_deploy_liveness_readiness_grpc.yml 
+
+5. Check status of pods by command (3 -5 min):
+	kubectl get pods --show-labels
+	kubectl describe pods/<pods name>
+
+6. Edit file webtest_deploy_liveness_readiness_grpc.yml to change grpc path from 2380 init to 2379
+(vi webtest_deploy_liveness_readiness_grpc.yml)
+
+7. Apply new configuration by command:
+	kubectl apply -f webtest_deploy_liveness_readiness_grpc.yml
+
+8. Check status of pods by command (3 -5 min):
+	kubectl get pods --show-labels
+
+9. Cleanup Lab by command:
+	kubectl delete -f webtest_deploy_liveness_readiness_grpc.yml
+
+====================================================
+Part 5: Exec Probe for Readiness Probe
 This workshop will use execute some command on container for probe
 ====================================================
 

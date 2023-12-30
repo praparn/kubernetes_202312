@@ -64,3 +64,17 @@ spec:
             timeoutSeconds: 30
             successThreshold: 1
             failureThreshold: 10
+          startupProbe:
+            httpGet:
+              # Optional "host: my-host" for set specific ip of Pods
+              # Optional "scheme: HTTPS"
+              #schema: HTTPS
+              path: /
+              port: webservice
+              httpHeaders:
+              - name: Server
+                value: Werkzeug/0.12.2 Python/2.7.13
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 10

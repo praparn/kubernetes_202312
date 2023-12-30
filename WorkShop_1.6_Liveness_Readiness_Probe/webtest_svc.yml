@@ -23,3 +23,8 @@ spec:
      targetPort: 5000
      protocol: TCP
      nodePort: 32500
+   - port: 2379
+     name: http
+     targetPort: 2379
+     protocol: TCP
+     nodePort: 32600

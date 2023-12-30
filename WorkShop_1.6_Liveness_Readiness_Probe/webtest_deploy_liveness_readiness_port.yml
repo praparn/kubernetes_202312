@@ -44,3 +44,9 @@ spec:
               port: 5000
             initialDelaySeconds: 15
             periodSeconds: 15
+          startupProbe:
+            tcpSocket:
+              port: 5000
+            successThreshold: 1
+            failureThreshold: 10
+            periodSeconds: 30
