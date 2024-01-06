@@ -219,19 +219,19 @@ sudo ETCDCTL_API=3 etcdctl \
    --cacert=/etc/kubernetes/pki/etcd/ca.crt \
    get /registry/secrets/webmicroservice/databasemodule-secret
 
-sudo ETCDCTL_API=3 etcdctl \
-   --cert=/etc/kubernetes/pki/etcd/server.crt \
-   --key=/etc/kubernetes/pki/etcd/server.key \
-   --cacert=/etc/kubernetes/pki/etcd/ca.crt \
-   get /registry/configmap/webmicroservice/webmodule-configmap
-
 6. Hack to see etcd database file directly by command:
-	sudo cat /var/lib/etcd/member/snap/db
+	sudo cat /var/lib/etcd/member/snap/db | more
 
 7. Download file enc.yml and place on "/etc/kubernetes/enc/enc.yml" by command:
-	sudo curl https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_1.8_ConfigMap_Secret/enc.yml > /etc/kubernetes/enc/enc.yml
+  sudo su -
+  mkdir /etc/kubernetes/enc/
+	curl https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_2.4_Security/enc.yml > /etc/kubernetes/enc/enc.yml
+  more /etc/kubernetes/enc/enc.yml
+  exit
 
 8. Enhance encryption provider on path "/etc/kubernetes/manifests/kube-apiserver.yaml" and edit file as detail below
+  sudo su -
+  vi /etc/kubernetes/manifests/kube-apiserver.yaml
 ---
 #
 # This is a fragment of a manifest for a static Pod.
@@ -267,6 +267,7 @@ spec:
       path: /etc/kubernetes/enc           # add this line
       type: DirectoryOrCreate             # add this line
   ...
+---
 
 9. Reboot server for apply new configuration by command: sudo shutdown -r now
 
@@ -276,20 +277,16 @@ spec:
 
 12. Update all secret with default config with the new by command: kubectl get secrets -n=webmicroservice -o json | kubectl replace -f -
 
-13. Update all configmap with default config with the new by command: kubectl get configmap -n=webmicroservice -o json | kubectl replace -f -
-
-14. Test get value of secret and configmap on etcd datastore by command:
+13. Test get value of secret and configmap on etcd datastore by command:
 sudo ETCDCTL_API=3 etcdctl \
    --cert=/etc/kubernetes/pki/etcd/server.crt \
    --key=/etc/kubernetes/pki/etcd/server.key \
    --cacert=/etc/kubernetes/pki/etcd/ca.crt \
    get /registry/secrets/webmicroservice/databasemodule-secret
 
-sudo ETCDCTL_API=3 etcdctl \
-   --cert=/etc/kubernetes/pki/etcd/server.crt \
-   --key=/etc/kubernetes/pki/etcd/server.key \
-   --cacert=/etc/kubernetes/pki/etcd/ca.crt \
-   get /registry/configmap/webmicroservice/webmodule-configmap
-
 15. Hack to see etcd database file directly by command:
-	sudo cat /var/lib/etcd/member/snap/db
+	sudo cat /var/lib/etcd/member/snap/db | more
+
+16. Cleanup lab by command:
+	kubectl delete -f https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_1.8_ConfigMap_Secret/databasemodule_deploy_config.yml
+	kubectl delete -f https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_1.8_ConfigMap_Secret/webmicroservice_namespace.yml
