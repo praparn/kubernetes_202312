@@ -181,7 +181,7 @@ resources:
 ----------------------------------------------------
 
 2. Install etcd client by command:
-sudo apt-get update && apt-get install etcd-client
+sudo apt-get update && sudo apt-get install etcd-client
 
 3. Deploy application stack use default secret/configmap as command below:
   3.1. Create Namespace by command:
