@@ -164,7 +164,7 @@ kubectl delete -f https://raw.githubusercontent.com/praparn/kubernetes_202312/ma
 Part 5: Encryption Provider
 ============================================================================================================================================================
 1. Verify Encryption by command:
-more ~/kubernetes_202312/master/WorkShop_2.4_Security/enc.yml
+more ~/kubernetes_202312/WorkShop_2.4_Security/enc.yml
 ----------------------------------------------------
 Example output:
 apiVersion: apiserver.config.k8s.io/v1
