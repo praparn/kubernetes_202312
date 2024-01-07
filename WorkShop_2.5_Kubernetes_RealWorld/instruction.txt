@@ -8,6 +8,7 @@ Note: This instruction will start lab for kubernetes's cluster for real workshop
     kubeadm reset					==> answer: y
 	rm -rf /var/lib/etcd
 	rm -rf /home/ubuntu/.kube
+	rm -rf /etc/kubernetes
 	ctr -n k8s.io i rm $(ctr -n k8s.io i ls -q)
 	reboot
 
@@ -80,7 +81,7 @@ tmux new -s Lab
 4. (Master) Prepare configuration for initial kubernetes master
     (run export environment)
 	cd ~
-	curl https://raw.githubusercontent.com/praparn/sourcesetup/master/kubernetes_initial/version126/kubeadm-init.yaml > ~/kubeadm-init.yaml
+	curl https://raw.githubusercontent.com/praparn/sourcesetup/master/kubernetes_initial/version129/kubeadm-init.yaml > ~/kubeadm-init.yaml
   	sed -i -e "s/2.2.2.2/$HostnameMaster1/g" ~/kubeadm-init.yaml
   	sed -i -e "s/hostnamemaster/$HostnameMaster1/g" ~/kubeadm-init.yaml
   	sed -i -e "s/KubernetesClusterName/$ClusterName/g" ~/kubeadm-init.yaml
@@ -137,7 +138,7 @@ UDP  ip-10-96-0-10.ap-southeast-1 rr
 
 9. (Master) Create cilium network component by command:
     cilium install
-	cilium status
+	cilium status --wait
 	
 10. (Master) Check master readiness and dns by command and enable hubble ui (Take 5 - 10 min):
 	watch kubectl get pods --all-namespaces
@@ -158,6 +159,7 @@ UDP  ip-10-96-0-10.ap-southeast-1 rr
 14. Create Dashboard by command:
 	kubectl create -f https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_1.7_Resource_Management/dashboard-restrict.yml
 	watch kubectl get all -n=kubernetes-dashboard
+	cd ~
 
 15. Create Generic-Admin for access by command and relogin again:
 	kubectl create -f https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_1.7_Resource_Management/user-restrict-admin.yml
@@ -181,7 +183,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IkZrTkFjN296TUxsbmFfZmU0MklfLVdUdnRjQXFyMWJ1TzFLbWRD
 14. (Worker1) Prepare configuration for initial kubernetes worker:
 (run export environment)
 cd ~
-curl https://raw.githubusercontent.com/praparn/sourcesetup/master/kubernetes_initial/version126/kubeadm-join-worker.yaml > ~/kubeadm-join-worker.yaml
+curl https://raw.githubusercontent.com/praparn/sourcesetup/master/kubernetes_initial/version129/kubeadm-join-worker.yaml > ~/kubeadm-join-worker.yaml
 sed -i -e "s/hostnamelb/$HostnameMaster1/g" ~/kubeadm-join-worker.yaml
 sed -i -e "s/token: tokenid/token: $tokenid/g" ~/kubeadm-join-worker.yaml
 sed -i -e "s/sha256:cahash/$cacerhash/g" ~/kubeadm-join-worker.yaml
@@ -197,7 +199,7 @@ htop
 16. (Worker2) Prepare configuration for initial kubernetes worker:
 (run export environment)
 cd ~
-curl https://raw.githubusercontent.com/praparn/sourcesetup/master/kubernetes_initial/version126/kubeadm-join-worker.yaml > ~/kubeadm-join-worker.yaml
+curl https://raw.githubusercontent.com/praparn/sourcesetup/master/kubernetes_initial/version129/kubeadm-join-worker.yaml > ~/kubeadm-join-worker.yaml
 sed -i -e "s/hostnamelb/$HostnameMaster1/g" ~/kubeadm-join-worker.yaml
 sed -i -e "s/token: tokenid/token: $tokenid/g" ~/kubeadm-join-worker.yaml
 sed -i -e "s/sha256:cahash/$cacerhash/g" ~/kubeadm-join-worker.yaml
@@ -329,7 +331,7 @@ metadata:
 	watch kubectl get pods -n=ingress-nginx
 
 	27.3 Collect external cname by command:
-	kubectl get svc -n=ingress-nginx	(This may take several miniute before finished) ==> Record "CNAME of NLB"
+	kubectl get svc -n=ingress-nginx	(This may take several miniute before finished) ==> Record "CNAME of NLB" and input on google sheet
 ========================================
 Example:
 NAME                                 TYPE           CLUSTER-IP     EXTERNAL-IP                                                                          PORT(S)                      AGE

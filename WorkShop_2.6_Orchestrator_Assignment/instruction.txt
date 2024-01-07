@@ -95,4 +95,3 @@ Part 5: Taint and Tolerations
 	kubectl delete -f https://raw.githubusercontent.com/praparn/kubernetes_202312/master/WorkShop_2.6_Orchestrator_Assignment/webtest_pod_taint.yml
 	kubectl get nodes
 	kubectl taint nodes <Master Name> dedicated-
-	
